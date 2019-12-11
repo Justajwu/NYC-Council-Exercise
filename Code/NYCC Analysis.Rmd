@@ -1,0 +1,409 @@
+---
+title: "NYPD Arrest Analysis"
+author: "James Wu"
+date: "12/5/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load packages
+```{r}
+require(tidyverse)
+require(ggplot2)
+require(lubridate)
+```
+
+
+## Data Validation
+Read in a sample data to determine proper col types.
+```{r}
+sample_df <- read_csv('NYPD_Arrests_Data__Historic.csv',
+                      n_max = 10)
+
+sample_df
+```
+
+All codes should be factor variables: ARREST_KEY, PD_CD, KY_CD, LAW_CODE, LAW_CAT_CD, ARREST_BORO, ARREST_PRECINCT, JURISDICTION_CODE, AGE_GROUP, PERP_SEX, PERP_RACE
+
+ARREST_DATE should be formatted as a date format (mm/dd/yyyy).
+
+```{r}
+# Read in the data as characters first
+full_df <- read_csv('NYPD_Arrests_Data__Historic.csv',
+                    trim_ws = FALSE,
+                    col_types = cols(
+                      ARREST_KEY = col_character(),
+                      ARREST_DATE = col_date(format = "%m/%d/%Y"),
+                      PD_CD = col_character(),
+                      PD_DESC = col_character(),
+                      KY_CD = col_character(),
+                      OFNS_DESC = col_character(),
+                      LAW_CODE = col_character(),
+                      LAW_CAT_CD = col_character(),
+                      ARREST_BORO = col_character(),
+                      ARREST_PRECINCT = col_character(),
+                      JURISDICTION_CODE = col_character(),
+                      AGE_GROUP = col_character(),
+                      PERP_SEX = col_character(),
+                      PERP_RACE = col_character(),
+                      X_COORD_CD = col_double(),
+                      Y_COORD_CD = col_double(),
+                      Latitude = col_double(),
+                      Longitude = col_double()
+                    ))
+
+# Convert cols to factors
+cols_to_factor <- c("ARREST_KEY", "PD_CD", "KY_CD", "LAW_CODE", "LAW_CAT_CD", "ARREST_BORO", "ARREST_PRECINCT", "JURISDICTION_CODE", "AGE_GROUP", "PERP_SEX", "PERP_RACE")
+
+full_df <- full_df %>%
+  mutate_at(cols_to_factor, as.factor)
+```
+
+Look at structure of the data frame:
+```{r}
+str(full_df)
+```
+
+__The good stuff: __
+* ARREST_KEY has all unique values as to be expected.
+* ARREST_BORO has 5 levels to represent all 5 boros as expected:
+  1. B
+  2. K
+  3. M
+  4. Q
+  5. S
+* PERP_SEX has 2 levels:
+  1. F = 1
+  2. M = 2
+* PERP_RACE has 8 distinct levels:
+  1. AMERICAN INDIAN/ALASKAN NATIVE
+  2. ASIAN / PACIFIC ISLANDER
+  3. BLACK
+  4. BLACK HISPANIC
+  5. OTHER
+  6. UNKNOWN
+  7. WHITE
+  8. WHITE HISPANIC
+
+__The bad stuff: __
+* PD_CD and KY_CD doesn't seem to be completely as described in the Data footnotes (i.e. the values are not all 3 digit codes)
+* AGE_GROUP has way too many brackets to make sense
+
+```{r}
+full_df %>%
+  group_by(AGE_GROUP) %>%
+  summarise(count = length(AGE_GROUP)) %>%
+  arrange(desc(count))
+```
+
+Given that most of the records are in 5 factors, and that our research question will most likely not need this variable, I will not be making any changes to this column.
+
+For this study, we only need arrest records from 2015-2018. This subset will be contained in __df__.
+
+```{r}
+# Create new variables for the month, day, and year from ARREST_DATE
+full_df <- full_df %>%
+  mutate(ARREST_MONTH = month(ARREST_DATE),
+         ARREST_DAY = day(ARREST_DATE),
+         ARREST_YEAR = year(ARREST_DATE))
+
+# Subset 2015-2018
+df <- full_df %>%
+  filter(ARREST_YEAR %in% 2015:2018)
+```
+
+Just curious on whether the AGE_GROUP fixed itself:
+```{r}
+df %>%
+  group_by(AGE_GROUP) %>%
+  summarise(count = length(AGE_GROUP)) %>%
+  arrange(desc(count))
+```
+
+Nice! While it is still somewhat concerning that the column had some strange values, it can be investigated later.
+
+
+Now to be sure the values for the columns are as described in the data dictionary:
+```{r,eval=FALSE}
+# There should only be three digits in the PD_CD column
+df %>%
+  select(PD_CD) %>%
+  rowwise() %>%
+  grepl("^[0-9]{3}$",.) %>%
+  sum()
+```
+
+Nice to check there is one PD_DESC per PD_CD.
+
+
+## Arrest rates from 2015-2018
+We can explore the arrest years by day, month, and year. I suspect there may be too much variability at the day level, and that there might be a seasonal effects (i.e. more arrests during certain months or parts of the month due for performance review or quotas) at the month level. But the data should speak for itself.
+```{r}
+daily_sum <- df %>%
+    group_by(ARREST_DAY,ARREST_MONTH,ARREST_YEAR) %>%
+    summarise(count = length(ARREST_DAY))
+
+daily_sum$ARREST_DATE <- as.Date(with(daily_sum, paste(ARREST_YEAR, ARREST_MONTH, ARREST_DAY,sep="-")), "%Y-%m-%d")
+                      
+
+monthly_sum <- df %>%
+  group_by(ARREST_MONTH,ARREST_YEAR) %>%
+  summarise(count = length(ARREST_MONTH)) 
+
+monthly_sum$ARREST_DATE <- as.Date(with(monthly_sum, paste(ARREST_YEAR, ARREST_MONTH,01,sep="-")), "%Y-%m-%d")
+
+yearly_sum <- df %>%
+  group_by(ARREST_YEAR) %>%
+  summarise(count = length(ARREST_YEAR))
+```
+
+##### Daily Arrests
+```{r}
+ggplot(data = daily_sum,
+       (aes(x = ARREST_DATE, y = count))) +
+  geom_line()
+```
+
+This seems far too granular with too much noise. However, we could still glean some information from this. There does seem to be a general downward trend or arrests from 2015 - 2018. In addition, the spikes also seem to be decreasing in size, which signifies less variability as the years increases as well. 
+
+Another way to see the general trend here is through a loess smoothing curve:
+```{r}
+ggplot(data = daily_sum,
+       (aes(x = ARREST_DATE, y = count))) +
+  geom_line(size=0.5,alpha=0.2) +
+  geom_smooth(se=FALSE) +
+  xlab("Arrest Date (by Day)") +
+  ylab("Arrest Count") +
+  theme_minimal()
+```
+
+
+##### Monthly Arrests
+By aggregating to monthly arrests, we are removing some of the variability displayed in the daily arrests and lessening the effect of an omitted variable bias if we decided to run a model.
+```{r}
+ggplot(data = monthly_sum,
+       (aes(x = ARREST_DATE, y = count))) +
+  geom_line() +
+  geom_point(size = 1)+
+  geom_smooth(se=FALSE) +
+  xlab("Arrest Date (by Month)") +
+  ylab("Arrest Count") +
+  theme_minimal()
+  
+```
+
+
+##### Annual Arrests
+Once aggregated to the annual level, we are removing even more variability and omitted variable bias. Seasonality effects are removed.
+```{r}
+yearly_sum
+```
+
+
+```{r}
+ggplot(data = yearly_sum,
+       (aes(x = ARREST_YEAR, y = count))) +
+  geom_line() +
+  geom_point(size = 1) +
+  stat_smooth(aes(y=count,x=ARREST_YEAR), 
+              method="lm",
+              se = FALSE,
+              size = .25,
+              linetype = 2)+
+  xlab("Arrest Date (by Year)") +
+  ylab("Arrest Count") +
+  theme_minimal()
+```
+
+The trend can be represented statistically by a simple linear regression:
+$$
+CRIME\_COUNT=\beta_0+\beta_1YEAR
+$$
+
+```{r}
+Annual.lm <- lm(count~ARREST_YEAR,data = yearly_sum)
+summary(Annual.lm)
+```
+
+## Top 5 most frequent arrest reasons in 2018
+```{r}
+Top5Arrests2018 <- df %>%
+                      filter(ARREST_YEAR == 2018) %>%
+                      group_by(PD_DESC) %>%
+                      summarise(count = length(PD_DESC)) %>%
+                      arrange(desc(count)) %>%
+                      top_n(5)
+
+Top5Arrests2018
+```
+
+### How arrests have changed over time (from 2015-2018)
+How has the top 5 reasons per year for arrest changed from 2015-2018?
+```{r}
+# Find the top 5 reasons in 2015, 2016, and 2017
+Top5Arrests2015 <- df %>%
+                      filter(ARREST_YEAR == 2015) %>%
+                      group_by(PD_DESC) %>%
+                      summarise(count = length(PD_DESC)) %>%
+                      arrange(desc(count)) %>%
+                      top_n(5)
+
+Top5Arrests2016 <- df %>%
+                      filter(ARREST_YEAR == 2016) %>%
+                      group_by(PD_DESC) %>%
+                      summarise(count = length(PD_DESC)) %>%
+                      arrange(desc(count)) %>%
+                      top_n(5)
+
+Top5Arrests2017 <- df %>%
+                      filter(ARREST_YEAR == 2017) %>%
+                      group_by(PD_DESC) %>%
+                      summarise(count = length(PD_DESC)) %>%
+                      arrange(desc(count)) %>%
+                      top_n(5)
+
+# Unique reasons for years 2015-2018
+Top5Arrest20152018 <- bind_rows(Top5Arrests2015,Top5Arrests2016,Top5Arrests2017,Top5Arrests2018)
+
+# Create data frame with only those reasons to see trend
+Top5Arrest_df <- df %>%
+                    filter(PD_DESC %in% Top5Arrest20152018$PD_DESC)
+```
+
+```{r}
+# Create trend plot
+Top5Arrest_Aggregate <- Top5Arrest_df %>%
+                                      group_by(PD_DESC,ARREST_YEAR) %>%
+                                      summarise(count = length(PD_DESC))
+
+ggplot(data = Top5Arrest_Aggregate,
+       aes(x = ARREST_YEAR,
+           y = count)) +
+  geom_line(aes(color = PD_DESC)) +
+  geom_point(aes(color = PD_DESC))+
+  xlab("Arrest Date (by Year)") +
+  ylab("Arrest Count") +
+  theme_minimal() +
+  theme(legend.position = "bottom", 
+        legend.text = element_text(size = 5),
+        legend.title = element_text(size = 5))
+```
+
+
+
+## Precinct 19 vs. Precinct 73
+While making the assumption that arrests are a sample of total crime is most likely okay, it may not be a representative sample. Other factors such as number of officers already deployed there, and more importantly potential systematic racially (or sex) based arrests may skew the sample.
+```{r}
+# Extract only the two precincts we are interested in from df
+Precinct_df <- df %>%
+                  filter(ARREST_PRECINCT %in% c(19,73))
+```
+
+We can do the same exploratory analysis as we did for the overall arrests: daily, monthly, and yearly.
+```{r}
+Pdaily_sum <- Precinct_df %>%
+    group_by(ARREST_DAY,ARREST_MONTH,ARREST_YEAR,ARREST_PRECINCT) %>%
+    summarise(count = length(ARREST_DAY))
+
+Pdaily_sum$ARREST_DATE <- as.Date(with(Pdaily_sum, paste(ARREST_YEAR, ARREST_MONTH, ARREST_DAY,sep="-")), "%Y-%m-%d")
+                      
+
+Pmonthly_sum <- Precinct_df %>%
+  group_by(ARREST_MONTH,ARREST_YEAR,ARREST_PRECINCT) %>%
+  summarise(count = length(ARREST_MONTH))
+
+Pmonthly_sum$ARREST_DATE <- as.Date(with(Pmonthly_sum, paste(ARREST_YEAR, ARREST_MONTH,01,sep="-")), "%Y-%m-%d")
+
+Pyearly_sum <- Precinct_df %>%
+  group_by(ARREST_YEAR,ARREST_PRECINCT) %>%
+  summarise(count = length(ARREST_YEAR))
+```
+
+##### Daily Arrests
+```{r}
+ggplot(data = Pdaily_sum,
+       (aes(x = ARREST_DATE, y = count))) +
+  geom_line(aes(color = ARREST_PRECINCT),
+             alpha = .2) +
+  stat_smooth(aes(x = ARREST_DATE, y = count),
+              data = Pdaily_sum %>% filter(ARREST_PRECINCT == 19),
+              method = "loess",
+              color = "tomato3",
+              se = FALSE) +
+  stat_smooth(aes(x = ARREST_DATE, y = count),
+              data = Pdaily_sum %>% filter(ARREST_PRECINCT == 73),
+              method = "loess",
+              color = "royalblue3",
+              se = FALSE) +
+  xlab("Arrest Date (by Day)") +
+  ylab("Arrest Count") +
+  theme_minimal()
+  
+```
+
+On average, we see that District 73 has more arrests/crime than District 19. However, while District 19's average crime rate stays stable, District 19's average crime decreases over time.
+
+There's an interesting outlier point for District 19 on 8/2/17. Here are the records at that time:
+```{r}
+Precinct_df %>% 
+  filter(ARREST_DATE == "2017-08-02", ARREST_PRECINCT == 19)
+```
+
+Most of these arrests were for Graffiti. It may be worth investigating further what happened then, but the outlier will not affect our model's performance significantly because of the middling x-value (low-leverage). I'm not positive, but it might have more of an effect on the model's performance once aggregated monthly and yearly because of the reduced number of points. 
+
+##### Monthly Arrests
+```{r}
+ggplot(data = Pmonthly_sum,aes(x = ARREST_DATE, y = count)) +
+  geom_line(aes(color = ARREST_PRECINCT)) +
+  geom_point(aes(color = ARREST_PRECINCT), size = 1)+
+  xlab("Arrest Date (by Month)") +
+  ylab("Arrest Count") +
+  theme_minimal()
+```
+
+There is high variance in the daily number of arrests, but the monthly arrests are pretty clear-cut: District 73 has a higher number of crimes (per month) than District 19. The trend for District 73 is decreasing over time versus staying relatively stable for District 19 as we also established from the daily plot.
+
+
+##### Annual Arrests
+```{r}
+ggplot(data = Pyearly_sum,aes(x = ARREST_YEAR, y = count)) +
+  geom_line(aes(color = ARREST_PRECINCT)) +
+  geom_point(aes(color = ARREST_PRECINCT),size = 1) +
+  stat_smooth(aes(x = ARREST_YEAR, y = count),
+              data = Pyearly_sum %>% filter(ARREST_PRECINCT == 19),
+              method = "lm",
+              color = "tomato3",
+              se = FALSE,
+              size = 0.25,
+              linetype = 2) +
+  stat_smooth(aes(x = ARREST_YEAR, y = count),
+              data = Pyearly_sum %>% filter(ARREST_PRECINCT == 73),
+              method = "lm",
+              color = "royalblue3",
+              se = FALSE,
+              size = 0.25,
+              linetype = 2) +
+  xlab("Arrest Date (by Year)") +
+  ylab("Arrest Count") +
+  theme_minimal()
+```
+
+After removing seasonality, the trend is even more obvious. This corroborates with all of our other findings.
+
+We can represent these trends statistically with a simple linear regression using a dummy variable for Precinct and an interaction term:
+$$
+CRIME\_COUNT = \beta_0 + \beta_1YEAR + \beta_2PRECINCT73 +\beta_4YEAR*PRECINCT73
+$$
+
+```{r}
+Precinct.lm <- lm(count~ARREST_YEAR + ARREST_PRECINCT+ ARREST_YEAR:ARREST_PRECINCT, data = Pyearly_sum)
+
+summary(Precinct.lm)
+```
+
+
+__ARREST_PRECINCT73__ takes on the value of 0 when it's District 19 and 1 when it's District 73. From our model, we see that District 73 has on average 2,143,694.1 - 1,060.90 * YEAR more crime than District 19. Because the interaction term is negative, we also know that the trend is more downwards sloping than District 19's, in other words, District 73 has crime decreasing at a faster rate than in District 19.
+
