@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.4.6)  11 DEC 2019 12:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.4.6)  11 DEC 2019 15:13
 entering extended mode
 **./NYCC_Report.tex
 (NYCC_Report.tex
@@ -186,37 +186,45 @@ Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 \titlewidthlast=\dimen121
 \titlewidthfirst=\dimen122
 )
+("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count103
+\float@exts=\toks27
+\float@box=\box29
+\@float@everytoks=\toks28
+\@floatcapt=\box30
+)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\upquote\upquote.sty"
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 ) (NYCC_Report.aux)
 \openout1 = `NYCC_Report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 62.
-LaTeX Font Info:    ... okay on input line 62.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
+LaTeX Font Info:    ... okay on input line 63.
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count103
+\scratchcounter=\count104
 \scratchdimen=\dimen123
-\scratchbox=\box29
-\nofMPsegments=\count104
-\nofMParguments=\count105
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count106
+\scratchbox=\box31
+\nofMPsegments=\count105
+\nofMParguments=\count106
+\everyMPshowfont=\toks29
+\MPscratchCnt=\count107
 \MPscratchDim=\dimen124
-\MPnumerator=\count107
-\makeMPintoPDFobject=\count108
-\everyMPtoPDFconversion=\toks28
+\MPnumerator=\count108
+\makeMPintoPDFobject=\count109
+\everyMPtoPDFconversion=\toks30
 ) ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
 Package: pdftexcmds 2016/05/21 v0.22 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -262,18 +270,13 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 74.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 72.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 74.
-
-Overfull \hbox (29.15593pt too wide) in paragraph at lines 77--78
-[]\OT1/cmr/bx/n/10.95 Is there more crime in precinct 19 (Up-per West Side) tha
-n in precinct 73 (Brownsville)?
- []
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 72.
 
 
 ! LaTeX Error: There's no line here to end.
@@ -282,96 +285,125 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.80 
+l.78 
      
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Overfull \hbox (9.4386pt too wide) in paragraph at lines 82--83
+Overfull \hbox (9.4386pt too wide) in paragraph at lines 80--81
 \OT1/cmr/m/n/10.95 We are us-ing NYPD Ar-rests Dataset avail-able at \OT1/cmr/m
 /it/10.95 https://data.cityofnewyork.us/Public-Safety/NYPD-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--90
+Underfull \hbox (badness 10000) in paragraph at lines 83--88
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--90
-
- []
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 95.
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 95.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Try loading font information for OMS+rsfs on input line 95.
-
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\calrsfs\omsrsfs.fd")
-LaTeX Font Info:    Try loading font information for U+lasy on input line 95.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\ulasy.fd"
-File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)
-Underfull \hbox (badness 10000) in paragraph at lines 93--96
+Underfull \hbox (badness 10000) in paragraph at lines 83--88
 
  []
 
 [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 98--101
+LaTeX Font Info:    Try loading font information for U+msa on input line 93.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 93.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for OMS+rsfs on input line 93.
+
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\calrsfs\omsrsfs.fd")
+LaTeX Font Info:    Try loading font information for U+lasy on input line 93.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ulasy.fd"
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+Underfull \hbox (badness 10000) in paragraph at lines 96--99
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 103--106
+Underfull \hbox (badness 10000) in paragraph at lines 101--104
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--115
+Underfull \hbox (badness 10000) in paragraph at lines 106--113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--115
+Underfull \hbox (badness 10000) in paragraph at lines 106--113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 108--115
+Underfull \hbox (badness 10000) in paragraph at lines 106--113
 
  []
 
-[2] [3] (NYCC_Report.aux) ) 
+[2] [3] <monthlyArrests.png, id=18, 651.93562pt x 478.03593pt>
+File: monthlyArrests.png Graphic file (type png)
+
+<use monthlyArrests.png>
+Package pdftex.def Info: monthlyArrests.png used on input line 120.
+(pdftex.def)             Requested size: 305.33789pt x 223.89642pt.
+ <Yearlytrend.png, id=19, 651.93562pt x 478.03593pt>
+File: Yearlytrend.png Graphic file (type png)
+
+<use Yearlytrend.png>
+Package pdftex.def Info: Yearlytrend.png used on input line 127.
+(pdftex.def)             Requested size: 305.33789pt x 223.89642pt.
+ <crimeOverYears.png, id=20, 651.93562pt x 478.03593pt>
+File: crimeOverYears.png Graphic file (type png)
+
+<use crimeOverYears.png>
+Package pdftex.def Info: crimeOverYears.png used on input line 134.
+(pdftex.def)             Requested size: 305.33789pt x 223.89642pt.
+ [4 <./monthlyArrests.png> <./Yearlytrend.png>]
+<BrownUES.png, id=26, 651.93562pt x 478.03593pt>
+File: BrownUES.png Graphic file (type png)
+ <use BrownUES.png>
+Package pdftex.def Info: BrownUES.png used on input line 141.
+(pdftex.def)             Requested size: 305.33789pt x 223.89642pt.
+
+<BrownUEStrend.png, id=27, 651.93562pt x 478.03593pt>
+File: BrownUEStrend.png Graphic file (type png)
+ <use BrownUEStrend.png>
+Package pdftex.def Info: BrownUEStrend.png used on input line 148.
+(pdftex.def)             Requested size: 305.33789pt x 223.89642pt.
+
+[5 <./crimeOverYears.png> <./BrownUES.png>] [6 <./BrownUEStrend.png>]
+(NYCC_Report.aux) ) 
 Here is how much of TeX's memory you used:
- 3070 strings out of 493333
- 41045 string characters out of 3139195
- 106371 words of memory out of 3000000
- 6522 multiletter control sequences out of 15000+200000
+ 3161 strings out of 493333
+ 42405 string characters out of 3139195
+ 107778 words of memory out of 3000000
+ 6603 multiletter control sequences out of 15000+200000
  10966 words of font info for 44 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,5n,29p,728b,146s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.p
-fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on NYCC_Report.pdf (3 pages, 110030 bytes).
+ 39i,6n,29p,931b,231s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/P
+rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on NYCC_Report.pdf (6 pages, 157212 bytes).
 PDF statistics:
- 40 PDF objects out of 1000 (max. 8388607)
+ 59 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

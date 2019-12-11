@@ -136,8 +136,6 @@ df %>%
   sum()
 ```
 
-Nice to check there is one PD_DESC per PD_CD.
-
 
 ## Arrest rates from 2015-2018
 We can explore the arrest years by day, month, and year. I suspect there may be too much variability at the day level, and that there might be a seasonal effects (i.e. more arrests during certain months or parts of the month due for performance review or quotas) at the month level. But the data should speak for itself.
