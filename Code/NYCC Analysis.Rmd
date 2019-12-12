@@ -218,11 +218,14 @@ ggplot(data = yearly_sum,
 
 The trend can be represented statistically by a simple linear regression:
 $$
-CRIME\_COUNT=\beta_0+\beta_1YEAR
+ARREST\_COUNT=\beta_0+\beta_1YEAR
 $$
 
 ```{r}
-Annual.lm <- lm(count~ARREST_YEAR,data = yearly_sum)
+# Create YEAR index for interpretability, where 2015 = 0
+yearly_sum <- yearly_sum %>% mutate(YEAR = ARREST_YEAR - 2015)
+
+Annual.lm <- lm(count~YEAR,data = yearly_sum)
 summary(Annual.lm)
 ```
 
@@ -397,11 +400,14 @@ CRIME\_COUNT = \beta_0 + \beta_1YEAR + \beta_2PRECINCT73 +\beta_4YEAR*PRECINCT73
 $$
 
 ```{r}
-Precinct.lm <- lm(count~ARREST_YEAR + ARREST_PRECINCT+ ARREST_YEAR:ARREST_PRECINCT, data = Pyearly_sum)
+# Create YEAR index for interpretability, where 2015 = 0
+Pyearly_sum <- Pyearly_sum %>% 
+  mutate(YEAR = ARREST_YEAR - 2015)
 
+Precinct.lm <- lm(count~YEAR + ARREST_PRECINCT+ YEAR:ARREST_PRECINCT, data = Pyearly_sum)
 summary(Precinct.lm)
 ```
 
 
-__ARREST_PRECINCT73__ takes on the value of 0 when it's District 19 and 1 when it's District 73. From our model, we see that District 73 has on average 2,143,694.1 - 1,060.90 * YEAR more crime than District 19. Because the interaction term is negative, we also know that the trend is more downwards sloping than District 19's, in other words, District 73 has crime decreasing at a faster rate than in District 19.
+__ARREST_PRECINCT73__ takes on the value of 0 when it's District 19 and 1 when it's District 73. From our model, we see that District 73 has on average 5,980.6 - 1,060.9 * YEAR more crime than District 19. Because the interaction term is negative, we also know that the trend is more downwards sloping than District 19's, in other words, District 73 has crime decreasing at a faster rate than in District 19.
 
