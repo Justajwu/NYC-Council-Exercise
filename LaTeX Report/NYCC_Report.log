@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.4.6)  12 DEC 2019 11:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.4.6)  12 DEC 2019 11:34
 entering extended mode
 **./NYCC_Report.tex
 (NYCC_Report.tex
@@ -380,21 +380,21 @@ File: crimeOverYears.png Graphic file (type png)
 
 <use crimeOverYears.png>
 Package pdftex.def Info: crimeOverYears.png used on input line 136.
-(pdftex.def)             Requested size: 399.29463pt x 292.79774pt.
+(pdftex.def)             Requested size: 469.75502pt x 344.46278pt.
  [4 <./monthlyArrests.png> <./Yearlytrend.png>]
-<BrownUES.png, id=26, 651.93562pt x 478.03593pt>
+[5 <./crimeOverYears.png>] <BrownUES.png, id=30, 651.93562pt x 478.03593pt>
 File: BrownUES.png Graphic file (type png)
- <use BrownUES.png>
-Package pdftex.def Info: BrownUES.png used on input line 143.
-(pdftex.def)             Requested size: 305.33789pt x 223.89642pt.
 
-<BrownUEStrend.png, id=27, 651.93562pt x 478.03593pt>
+<use BrownUES.png>
+Package pdftex.def Info: BrownUES.png used on input line 145.
+(pdftex.def)             Requested size: 305.33789pt x 223.89642pt.
+ <BrownUEStrend.png, id=31, 651.93562pt x 478.03593pt>
 File: BrownUEStrend.png Graphic file (type png)
- <use BrownUEStrend.png>
-Package pdftex.def Info: BrownUEStrend.png used on input line 150.
-(pdftex.def)             Requested size: 305.33789pt x 223.89642pt.
 
-[5 <./crimeOverYears.png> <./BrownUES.png>] [6 <./BrownUEStrend.png>]
+<use BrownUEStrend.png>
+Package pdftex.def Info: BrownUEStrend.png used on input line 152.
+(pdftex.def)             Requested size: 305.33789pt x 223.89642pt.
+ [6 <./BrownUES.png> <./BrownUEStrend.png>]
 (NYCC_Report.aux) ) 
 Here is how much of TeX's memory you used:
  3161 strings out of 493333
@@ -411,7 +411,7 @@ rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX
  2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on NYCC_Report.pdf (6 pages, 157598 bytes).
+Output written on NYCC_Report.pdf (6 pages, 157568 bytes).
 PDF statistics:
  59 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

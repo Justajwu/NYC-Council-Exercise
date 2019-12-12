@@ -83,10 +83,12 @@ Our model may be evaluated by using a certain time-frame as the training data, s
 
 \begin{figure}[H]
   \centering
-    \includegraphics[width=0.85\textwidth]{crimeOverYears.png}
+    \includegraphics[width=\textwidth]{crimeOverYears.png}
   \caption{\textbf{Evolution of Arrest Types from 2015-2018.}}
   \label{fig:crimeOverYears}
 \end{figure}
+
+\newpage
 
 \begin{figure}[H]
   \centering
