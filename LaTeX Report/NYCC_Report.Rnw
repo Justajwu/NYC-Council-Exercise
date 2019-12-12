@@ -43,8 +43,8 @@ We found the general trend of arrests has been steadily decreasing from 2015-201
 To quantify this trend, we used a linear regression model on the aggregated yearly data removing seasonality. The specified model is: $ARREST\_COUNT=\beta_0+\beta_1YEAR$. We found \textit{YEAR} variable to be statistically signicant at an alpha of .05, and with a negative coefficient which signifies a downwards trend. On average, the number of arrests have decreased by 30,673 per year on our fitted trend line (Figure: \ref{fig:Yearlytrend}).
 
 \subsection{Evolution of the top 5 arrest reasons}
-Please refer to Figure: \ref{fig:crimeOverYears} in the Appendix for visual aid for this section.
-
+(Please refer to Figure: \ref{fig:crimeOverYears} in the Appendix for visual aid for this section.)
+\\\\
 The top 5 arrest reasons in 2018 were 3rd degree assault, petit larceny, traffic misdemeanor, 2nd degree assault, and 7th degree possession of controlled substances in that order. In contrast, the top 5 arrest reasons in 2015 were theft of services, 3rd degree assault, petit larceny, 7th degree possession of controlled substances, and unclassified NYS laws in that order.
 \\\\
 Theft arrests has decreased 76\% over the years, and arrests under "unclassified NYS laws" has decreased by 94\% (although, I suspect this may be because this classification may have been spread out to other offenses). 3rd degree assault, petit larceny, 2nd degree assault, and unclassified traffic misdemeanors have had relatively stable number of arrests throughout the years. 
